@@ -12,12 +12,11 @@ type Config struct {
 		Timeout int    `json:"timeout"` // in seconds
 	} `json:"server"`
 	Client struct {
-		Address     string `json:"address"`
-		Username    string `json:"username"`
-		Password    string `json:"password"`
-		DB          string `json:"db"`
-		Measurement string `json:"measurement"`
-		Host        string `json:"host"`
+		Address  string `json:"address"`
+		Username string `json:"username"`
+		Password string `json:"password"`
+		DB       string `json:"db"`
+		Host     string `json:"host"`
 	} `json:"client"`
 }
 

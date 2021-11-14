@@ -11,9 +11,8 @@ import (
 	"time"
 )
 
-func lineProtocolPrefix(request types.Request, config config.Config) string {
+func lineProtocolTags(request types.Request, config config.Config) string {
 	var builder strings.Builder
-	builder.WriteString(config.Client.Measurement)
 	builder.WriteString(",host=")
 	builder.WriteString(config.Client.Host)
 	builder.WriteString(",ip=")
@@ -29,7 +28,7 @@ func lineProtocolPrefix(request types.Request, config config.Config) string {
 
 func GetHandler(config config.Config) types.Callback {
 	return func(request types.Request) error {
-		prefix := lineProtocolPrefix(request, config)
+		tags := lineProtocolTags(request, config)
 		timeString := strconv.FormatInt(time.Now().UnixNano(), 10)
 
 		url := config.Client.Address + "/write?db=" + config.Client.DB
@@ -40,10 +39,11 @@ func GetHandler(config config.Config) types.Callback {
 
 		for key, value := range request.Data {
 			builder.Reset()
-			builder.WriteString(prefix)
 
 			builder.WriteString(key)
-			builder.WriteString("=")
+			builder.WriteString(tags)
+
+			builder.WriteString("value=")
 			builder.WriteString(value)
 			builder.WriteString(" ")
 
