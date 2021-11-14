@@ -13,6 +13,8 @@ type Config struct {
 	} `json:"server"`
 	Client struct {
 		Address     string `json:"address"`
+		Username    string `json:"username"`
+		Password    string `json:"password"`
 		DB          string `json:"db"`
 		Measurement string `json:"measurement"`
 		Host        string `json:"host"`

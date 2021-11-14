@@ -42,7 +42,14 @@ func GetHandler(config config.Config) types.Callback {
 
 		url := config.Client.Address + "/write?db=" + config.Client.DB
 
-		resp, err := http.Post(url, "application/octet-stream", strings.NewReader(line))
+		client := &http.Client{}
+		req, err := http.NewRequest("POST", url, strings.NewReader(line))
+
+		if len(config.Client.Username) != 0 && len(config.Client.Password) != 0 {
+			req.SetBasicAuth(config.Client.Username, config.Client.Password)
+		}
+
+		resp, err := client.Do(req)
 		if err != nil {
 			log.Println(err)
 			return err
