@@ -1,0 +1,12 @@
+{
+  "server": {
+    "bind": "0.0.0.0:20159",
+    "timeout": 30
+  },
+  "client": {
+    "address": "http://localhost:8086",
+    "db": "grafana",
+    "measurement": "iot",
+    "host": "iot-relay"
+  }
+}
